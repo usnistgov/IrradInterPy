@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>511</width>
+    <height>271</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>511</width>
+    <height>271</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>NIST Irradiance Interpolation - About</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="1">
+      <widget class="QPushButton" name="pushButton">
+       <property name="minimumSize">
+        <size>
+         <width>75</width>
+         <height>23</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>75</width>
+         <height>23</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Close</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_empty">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="2">
+      <widget class="QLabel" name="label_text">
+       <property name="minimumSize">
+        <size>
+         <width>350</width>
+         <height>160</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;About&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;This program was developed by the National Institute of Standards and Technology (NIST) to determine coefficients used in the gray body model for spectral irradiance and interpolate measurement data either using the gray body model or cubic spline interpolation.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The source code for this program, including documentation, is located at &amp;lt;github link&amp;gt;.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;To get help or suggest feedback, send an email to &lt;a href=&quot;mailto:michael.braine@nist.gov&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;michael.braine@nist.gov&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

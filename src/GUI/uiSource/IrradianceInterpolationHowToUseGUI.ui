@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>511</width>
+    <height>338</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>511</width>
+    <height>338</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>NIST Irradiance Interpolation - How to Use</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="1">
+      <widget class="QPushButton" name="pushButton">
+       <property name="minimumSize">
+        <size>
+         <width>75</width>
+         <height>23</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>75</width>
+         <height>23</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Close</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_empty">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="2">
+      <widget class="QLabel" name="label_text">
+       <property name="minimumSize">
+        <size>
+         <width>350</width>
+         <height>160</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;How to use this program&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;1) Load the datafile with &amp;quot;File&amp;quot; &amp;gt; &amp;quot;Open datafile&amp;quot;. See &amp;quot;Help&amp;quot; &amp;gt; &amp;quot;Input datafile requirements&amp;quot; for expectations on the input datafile.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;2) Use the dropdown menus under the &amp;quot;Gray body fit parameters&amp;quot; group box to select the lower and upper wavelength bounds to apply the fit over. These values are pulled from the datafile. Use the &amp;quot;Fit degrees of freedom&amp;quot; to set degrees of freedom of the applied fit.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;3) Use the dropdown menus under &amp;quot;Gray body interpolation parameters&amp;quot; group box to select the region to calculate interpolated irradiances using the applied fit. Enter the wavelength step of the interpolation.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;4) Under the &amp;quot;Results&amp;quot; group box, the coefficients and interpolation results are displayed in their own tables.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;5) At the bottom of the main window (titled &amp;quot;NIST Irradiance Interpolation&amp;quot;), the &amp;quot;Write results to file&amp;quot; button will export the fit coefficients and interpolated data to a CSV file. By default, a filename is based on the original data filename with the date and time of the interpolation appended. The filename can be customized in the save dialog window.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
