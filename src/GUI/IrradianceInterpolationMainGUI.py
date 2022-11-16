@@ -117,17 +117,49 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
             self.ResetCSChart()
             self.IssuesMsgBox.show()
 
+    def ChangedGBLowerWLFit(self):
+        try:
+            if float(self.ui.combo_GBLowerWLFit.currentText()) > float(self.ui.combo_GBLowerWL.currentText()):
+                self.ui.combo_GBLowerWL.setCurrentIndex(self.ui.combo_GBLowerWLFit.currentIndex())
+            self.ChangedGBEvaluation()
+        except Exception as err:
+            raise err
+
+    def ChangedGBLowerWL(self):
+        try:
+            if float(self.ui.combo_GBLowerWL.currentText()) < float(self.ui.combo_GBLowerWLFit.currentText()):
+                self.ui.combo_GBLowerWLFit.setCurrentIndex(self.ui.combo_GBLowerWL.currentIndex())
+            self.ChangedGBEvaluation()
+        except Exception as err:
+            raise err
+
+    def ChangedGBUpperWLFit(self):
+        try:
+            if float(self.ui.combo_GBUpperWLFit.currentText()) < float(self.ui.combo_GBUpperWL.currentText()):
+                self.ui.combo_GBUpperWL.setCurrentIndex(self.ui.combo_GBUpperWLFit.currentIndex())
+            self.ChangedGBEvaluation()
+        except Exception as err:
+            raise err
+
+    def ChangedGBUpperWL(self):
+        try:
+            if float(self.ui.combo_GBUpperWL.currentText()) > float(self.ui.combo_GBUpperWLFit.currentText()):
+                self.ui.combo_GBUpperWLFit.setCurrentIndex(self.ui.combo_GBUpperWL.currentIndex())
+            self.ChangedGBEvaluation()
+        except Exception as err:
+            raise err
+
     def DisconnectGBDropdowns(self):
-        self.ui.combo_GBLowerWLFit.currentIndexChanged.disconnect(self.ChangedGBEvaluation)
-        self.ui.combo_GBUpperWLFit.currentIndexChanged.disconnect(self.ChangedGBEvaluation)
-        self.ui.combo_GBLowerWL.currentIndexChanged.disconnect(self.ChangedGBEvaluation)
-        self.ui.combo_GBUpperWL.currentIndexChanged.disconnect(self.ChangedGBEvaluation)
+        self.ui.combo_GBLowerWLFit.currentIndexChanged.disconnect(self.ChangedGBLowerWLFit)
+        self.ui.combo_GBUpperWLFit.currentIndexChanged.disconnect(self.ChangedGBUpperWLFit)
+        self.ui.combo_GBLowerWL.currentIndexChanged.disconnect(self.ChangedGBLowerWL)
+        self.ui.combo_GBUpperWL.currentIndexChanged.disconnect(self.ChangedGBUpperWL)
 
     def ConnectGBDropdowns(self):
-        self.ui.combo_GBLowerWLFit.currentIndexChanged.connect(self.ChangedGBEvaluation)
-        self.ui.combo_GBUpperWLFit.currentIndexChanged.connect(self.ChangedGBEvaluation)
-        self.ui.combo_GBLowerWL.currentIndexChanged.connect(self.ChangedGBEvaluation)
-        self.ui.combo_GBUpperWL.currentIndexChanged.connect(self.ChangedGBEvaluation)
+        self.ui.combo_GBLowerWLFit.currentIndexChanged.connect(self.ChangedGBLowerWLFit)
+        self.ui.combo_GBUpperWLFit.currentIndexChanged.connect(self.ChangedGBUpperWLFit)
+        self.ui.combo_GBLowerWL.currentIndexChanged.connect(self.ChangedGBLowerWL)
+        self.ui.combo_GBUpperWL.currentIndexChanged.connect(self.ChangedGBUpperWL)
 
     def DisconnectCSDropdowns(self):
         self.ui.combo_CSLowerWL.currentIndexChanged.disconnect(self.ChangedCSEvaluation)
