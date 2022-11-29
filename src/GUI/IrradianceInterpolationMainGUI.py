@@ -22,19 +22,14 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         # initial setup
         self.ui.statusBar.showMessage(version.version)
         self.ui.lineEdit_GBStep.setText(str(GUIvar.defaultGBInterpStep))
-        self.ui.lineEdit_CSStep.setText(str(GUIvar.defaultCSInterpStep))
         self.ui.combo_GBdof.clear()
         for dof in GUIvar.GBfitdof:
             self.ui.combo_GBdof.addItem(str(dof))
         self.ui.combo_GBdof.setCurrentIndex(GUIvar.defaultGBdofIndex)
         self.ui.tableWidget_GBCoefficients.resizeColumnsToContents()
         self.ui.tableWidget_GBInterpolation.resizeColumnsToContents()
-        self.ui.tableWidget_CSCoefficients.resizeColumnsToContents()
-        self.ui.tableWidget_CSInterpolation.resizeColumnsToContents()
         self.GBcoeffTableHeaders = ["Coefficient", "Value", "Uncertainty (k=1)"]
         self.GBinterpTableHeaders = ["Wavelength (nm)", "Interpolated Irradiance (W/cm^3)"]
-        self.CScoeffTableHeaders = ["i", "Segment", "a_i", "b_i", "c_i", "d_i"]
-        self.CSinterpTableHeaders = ["Wavelength (nm)", "Interpolated Irradiance (W/cm^3)"]
 
         # variable initialization
         self.InputFilename = ""
@@ -49,11 +44,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.GBinterpWavelengths = []
         self.GBinterpIrradiances = []
         self.GBinterpfile = ""
-        self.CSinterpWavelengths = []
-        self.CSinterpIrradiances = []
-        self.CScoefficients = []
-        self.CSfit = ""
-        self.CSinterpfile = ""
 
         # chart setups
         self.ui.GBChart.Figure = Figure()
@@ -62,13 +52,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         chartlayout.addWidget(self.ui.GBChart.Canvas)
         self.ui.GBChart.setLayout(chartlayout)
         self.ResetGBChart()
-
-        self.ui.CSChart.Figure = Figure()
-        self.ui.CSChart.Canvas = FigureCanvas(self.ui.CSChart.Figure)
-        chartlayout = QtWidgets.QVBoxLayout()
-        chartlayout.addWidget(self.ui.CSChart.Canvas)
-        self.ui.CSChart.setLayout(chartlayout)
-        self.ResetCSChart()
 
         # attach additional windows
         self.ui.about = Window_About()
@@ -91,12 +74,9 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.ui.actionDatafileRequirements.triggered.connect(self.ui.datafileRequirements.exec_)
         self.ui.actionHowToUse.triggered.connect(self.ui.howToUse.exec_)
         self.ui.pushButton_GBEvaluate.clicked.connect(self.Clicked_GBEvaluate)
-        self.ui.pushButton_CSEvaluate.clicked.connect(self.Clicked_CSEvaluate)
         self.ConnectGBDropdowns()
-        self.ConnectCSDropdowns()
         self.ui.combo_GBdof.currentIndexChanged.connect(self.ChangedGBEvaluation)
         self.ui.lineEdit_GBStep.textChanged.connect(self.ChangedGBEvaluation)
-        self.ui.lineEdit_CSStep.textChanged.connect(self.ChangedCSEvaluation)
         self.ui.actionExit.triggered.connect(self.Clicked_QUIT)
 
     def ChangedGBEvaluation(self):
@@ -106,15 +86,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
             self.ClearGBCoeffTable()
             self.ClearGBInterpTable()
             self.ResetGBChart()
-            self.IssuesMsgBox.show()
-            
-    def ChangedCSEvaluation(self):
-        if self.CheckCSInputs() == 0:
-            self.CSEvaluate()
-        else:
-            self.ClearCSCoeffTable()
-            self.ClearCSInterpTable()
-            self.ResetCSChart()
             self.IssuesMsgBox.show()
 
     def ChangedGBLowerWLFit(self):
@@ -161,14 +132,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.ui.combo_GBLowerWL.currentIndexChanged.connect(self.ChangedGBLowerWL)
         self.ui.combo_GBUpperWL.currentIndexChanged.connect(self.ChangedGBUpperWL)
 
-    def DisconnectCSDropdowns(self):
-        self.ui.combo_CSLowerWL.currentIndexChanged.disconnect(self.ChangedCSEvaluation)
-        self.ui.combo_CSUpperWL.currentIndexChanged.disconnect(self.ChangedCSEvaluation)
-
-    def ConnectCSDropdowns(self):
-        self.ui.combo_CSLowerWL.currentIndexChanged.connect(self.ChangedCSEvaluation)
-        self.ui.combo_CSUpperWL.currentIndexChanged.connect(self.ChangedCSEvaluation)
-
     def Clicked_OpenDatafile(self):
         try:
             tempstr, _ = QtWidgets.QFileDialog.getOpenFileName()
@@ -176,37 +139,24 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
                 self.InputFilename = Path(tempstr)
                 self.wavelengths, self.irradiances = IIF.ParseDatafile(self.InputFilename)
                 self.DisconnectGBDropdowns()
-                self.DisconnectCSDropdowns()
                 self.PopulateWLBoundCombos()
                 self.ui.combo_GBLowerWLFit.setCurrentIndex(0)
                 self.ui.combo_GBLowerWL.setCurrentIndex(0)
                 self.ui.combo_GBUpperWL.setCurrentIndex(self.ui.combo_GBUpperWL.count()-1)
                 self.ui.combo_GBUpperWLFit.setCurrentIndex(self.ui.combo_GBUpperWLFit.count()-1)
-                self.ui.combo_CSLowerWL.setCurrentIndex(0)
-                self.ui.combo_CSUpperWL.setCurrentIndex(self.ui.combo_CSUpperWL.count()-1)
                 self.ConnectGBDropdowns()
-                self.ConnectCSDropdowns()
                 self.ToggleGBGUI(True)
-                self.ToggleCSGUI(True)
                 if self.CheckGBInputs() == 0:
                     self.GBEvaluate()
-                if self.CheckCSInputs() == 0:
-                    self.CSEvaluate()
             else:
                 self.InputFilename = ""
                 self.DisconnectGBDropdowns()
-                self.DisconnectCSDropdowns()
                 self.ClearWLBoundCombos()
                 self.ToggleGBGUI(False)
-                self.ToggleCSGUI(False)
                 self.ConnectGBDropdowns()
-                self.ConnectCSDropdowns()
                 self.ResetGBChart()
-                self.ResetCSChart()
                 self.ClearGBCoeffTable()
                 self.ClearGBInterpTable()
-                self.ClearCSCoeffTable()
-                self.ClearCSInterpTable()
         except Exception as err:
             raise err
 
@@ -219,20 +169,12 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.ui.combo_GBLowerWLFit.setEnabled(state)
         self.ui.combo_GBUpperWLFit.setEnabled(state)
 
-    def ToggleCSGUI(self, state):
-        self.ui.combo_CSLowerWL.setEnabled(state)
-        self.ui.combo_CSUpperWL.setEnabled(state)
-        self.ui.lineEdit_CSStep.setEnabled(state)
-        self.ui.pushButton_CSEvaluate.setEnabled(state)
-
     def ClearWLBoundCombos(self):
         try:
             self.ui.combo_GBLowerWL.clear()
             self.ui.combo_GBUpperWL.clear()
             self.ui.combo_GBLowerWLFit.clear()
             self.ui.combo_GBUpperWLFit.clear()
-            self.ui.combo_CSLowerWL.clear()
-            self.ui.combo_CSUpperWL.clear()
         except Exception as err:
             raise err
 
@@ -243,8 +185,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
                 self.ui.combo_GBUpperWLFit.addItem(str(wavelength))
                 self.ui.combo_GBLowerWL.addItem(str(wavelength))
                 self.ui.combo_GBUpperWL.addItem(str(wavelength))
-                self.ui.combo_CSLowerWL.addItem(str(wavelength))
-                self.ui.combo_CSUpperWL.addItem(str(wavelength))
         except Exception as err:
             raise err
 
@@ -261,22 +201,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
             self.ui.tableWidget_GBInterpolation.clear()
             self.ui.tableWidget_GBInterpolation.setHorizontalHeaderLabels(self.GBinterpTableHeaders)
             self.ui.tableWidget_GBInterpolation.resizeColumnsToContents()
-        except Exception as err:
-            raise err
-
-    def ClearCSCoeffTable(self):
-        try:
-            self.ui.tableWidget_CSCoefficients.clear()
-            self.ui.tableWidget_CSCoefficients.setHorizontalHeaderLabels(self.CScoeffTableHeaders)
-            self.ui.tableWidget_CSCoefficients.resizeColumnsToContents()
-        except Exception as err:
-            raise err
-
-    def ClearCSInterpTable(self):
-        try:
-            self.ui.tableWidget_CSInterpolation.clear()
-            self.ui.tableWidget_CSInterpolation.setHorizontalHeaderLabels(self.CSinterpTableHeaders)
-            self.ui.tableWidget_CSInterpolation.resizeColumnsToContents()
         except Exception as err:
             raise err
 
@@ -355,68 +279,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         except Exception as err:
             raise err
 
-    def PopulateCSCoeffTable(self):
-        try:
-            self.ClearCSCoeffTable()
-            nSegments = len(self.CScoefficients[0])
-            self.ui.tableWidget_CSCoefficients.setRowCount(nSegments)
-            self.ui.tableWidget_CSCoefficients.setColumnCount(6)
-            self.ui.tableWidget_CSCoefficients.setHorizontalHeaderLabels(self.CScoeffTableHeaders)
-            for i in range(nSegments):
-                iItem = QtWidgets.QTableWidgetItem(str(i))
-                iItem.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
-                iItem.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-                self.ui.tableWidget_CSCoefficients.setItem(i, 0, iItem)
-
-                segmentItem = QtWidgets.QTableWidgetItem("%.2f nm to %.2f nm" % (self.CSfit.x[i], self.CSfit.x[i+1]))
-                segmentItem.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
-                segmentItem.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-                self.ui.tableWidget_CSCoefficients.setItem(i, 1, segmentItem)
-
-                a_iItem = QtWidgets.QTableWidgetItem("%.6e" % (self.CScoefficients[3, i]))
-                a_iItem.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
-                a_iItem.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-                self.ui.tableWidget_CSCoefficients.setItem(i, 2, a_iItem)
-
-                b_iItem = QtWidgets.QTableWidgetItem("%.6e" % (self.CScoefficients[2, i]))
-                b_iItem.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
-                b_iItem.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-                self.ui.tableWidget_CSCoefficients.setItem(i, 3, b_iItem)
-
-                c_iItem = QtWidgets.QTableWidgetItem("%.6e" % (self.CScoefficients[1, i]))
-                c_iItem.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
-                c_iItem.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-                self.ui.tableWidget_CSCoefficients.setItem(i, 4, c_iItem)
-
-                d_iItem = QtWidgets.QTableWidgetItem("%.6e" % (self.CScoefficients[0, i]))
-                d_iItem.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
-                d_iItem.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-                self.ui.tableWidget_CSCoefficients.setItem(i, 5, d_iItem)
-
-            self.ui.tableWidget_CSCoefficients.resizeColumnsToContents()
-        except Exception as err:
-            raise err
-
-    def PopulateCSInterpTable(self):
-        try:
-            self.ClearCSInterpTable()
-            self.ui.tableWidget_CSInterpolation.setRowCount(len(self.CSinterpWavelengths))
-            self.ui.tableWidget_CSInterpolation.setColumnCount(2)
-            self.ui.tableWidget_CSInterpolation.setHorizontalHeaderLabels(self.CSinterpTableHeaders)
-            for row, (wavelength, irradiance) in enumerate(zip(self.CSinterpWavelengths, self.CSinterpIrradiances)):
-                interpWLItem = QtWidgets.QTableWidgetItem("%.2f" % (wavelength))
-                interpWLItem.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
-                interpWLItem.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-                self.ui.tableWidget_CSInterpolation.setItem(row, 0, interpWLItem)
-
-                InterpIrItem = QtWidgets.QTableWidgetItem("%.6e" % (irradiance))
-                InterpIrItem.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
-                InterpIrItem.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
-                self.ui.tableWidget_CSInterpolation.setItem(row, 1, InterpIrItem)
-            self.ui.tableWidget_CSInterpolation.resizeColumnsToContents()
-        except Exception as err:
-            raise err
-
     def Clicked_GBEvaluate(self):
         try:
             fileTimeStr = "%d-%d-%d_%d-%d-%d" % (
@@ -448,37 +310,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         except Exception as err:
             raise err
 
-    def Clicked_CSEvaluate(self):
-        try:
-            fileTimeStr = "%d-%d-%d_%d-%d-%d" % (
-                datetime.today().day, 
-                datetime.today().month, 
-                datetime.today().year, 
-                datetime.today().hour, 
-                datetime.today().minute, 
-                datetime.today().second,
-            )
-            self.CSinterpfile = ".".join(str(self.InputFilename).split(".")[:-1]) + "-Cubic_Spline_Interpolation-%s.csv" % (fileTimeStr)
-            nIssues = self.CheckCSInputs()
-            if nIssues != 0:
-                self.ClearCSCoeffTable()
-                self.ClearCSInterpTable()
-                self.ResetCSChart()
-                self.IssuesMsgBox.show()
-            else:
-                self.CSinterpfile, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Write cubic spline interpolation to file", self.CSinterpfile, filter="CSV (*.csv)")
-                if self.CSinterpfile == "":
-                    self.IssuesMsgBox.setText(self.IssuesMsgBox.text() + "  - Write to file cancelled. Results not yet saved!")
-                    self.IssuesMsgBox.show()
-                else:
-                    if self.CheckCSOutputFileExists() == 0:
-                        self.CSEvaluate()
-                        self.WriteCSInterpolationToFile()
-                    else:
-                        self.IssuesMsgBox.show()
-        except Exception as err:
-            raise err
-
     def GBEvaluate(self):
         self.GBcoefficients, self.GBuncertainty, self.GBinterpWavelengths, self.GBinterpIrradiances = [], [], [], []
         self.GBa, self.GBb, self.GBBBtemperature, self.abUncertainty = "", "", "", ""
@@ -499,18 +330,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.PopulateGBCoeffTable()
         self.PopulateGBInterpTable()
         self.UpdateGBChart()
-
-    def CSEvaluate(self):
-        self.CSinterpWavelengths, self.CSinterpIrradiances, self.CScoefficients = [], [], []
-        self.CSinterpWavelengths, self.CSinterpIrradiances, self.CScoefficients, self.CSfit = IIF.CubicSplineInterpolation(
-            self.wavelengths,
-            self.irradiances,
-            (float(self.ui.combo_CSLowerWL.currentText()), float(self.ui.combo_CSUpperWL.currentText())),
-            int(self.ui.lineEdit_CSStep.text()),
-        )
-        self.PopulateCSCoeffTable()
-        self.PopulateCSInterpTable()
-        self.UpdateCSChart()
 
     def CheckGBInputs(self):
         try:
@@ -565,31 +384,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.IssuesMsgBox.setText(errMsg)
         return nIssues
 
-    def CheckCSInputs(self):
-        try:
-            nIssues = 0
-            errMsg = "The following issues need corrected:\n"
-            # check if lower wavelength is smaller than upper wavelength for CS fit parameters
-            if float(self.ui.combo_CSLowerWL.currentText()) >= float(self.ui.combo_CSUpperWL.currentText()):
-                errMsg = errMsg + "  - the lower wavelength must be less than the upper wavelength in cubic spline interpolation parameters\n"
-                nIssues += 1
-
-            # check if CS step is float and greater than zero
-            try:
-                if float(self.ui.lineEdit_CSStep.text()) <= 0:
-                    errMsg = errMsg + "  - the cubic spline interpolation step must be a float greater than zero\n"
-                    nIssues += 1
-            except Exception as dofIntErr:
-                if "could not convert string to float" in str(dofIntErr):
-                    errMsg = errMsg + "  - the cubic spline interpolation step must be a float greater than zero\n"
-                    nIssues += 1
-                else:
-                    raise dofIntErr
-        except Exception as err:
-            raise err
-        self.IssuesMsgBox.setText(errMsg)
-        return nIssues
-
     def CheckGBOutputFileExists(self):
         try:
             with open(self.GBinterpfile, "w") as openedfile:
@@ -598,19 +392,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         except Exception as openFileErr:
             if "Permission denied" in str(openFileErr):
                 errMsg = self.IssuesMsgBox.text() + "  - close the file %s to write evaluations to it.\n" % (self.GBinterpfile)
-                self.IssuesMsgBox.setText(errMsg)
-                return 1
-            else:
-                raise openFileErr
-
-    def CheckCSOutputFileExists(self):
-        try:
-            with open(self.CSinterpfile, "w") as openedfile:
-                openedfile.write("")
-                return 0
-        except Exception as openFileErr:
-            if "Permission denied" in str(openFileErr):
-                errMsg = self.IssuesMsgBox.text() + "  - close the file %s to write evaluations to it.\n" % (self.CSinterpfile)
                 self.IssuesMsgBox.setText(errMsg)
                 return 1
             else:
@@ -646,33 +427,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         except Exception as err:
             raise err
 
-    def WriteCSInterpolationToFile(self):
-        try:
-            nSegments = len(self.CScoefficients[0])
-            with open(self.CSinterpfile, "w") as openedfile:
-                openedfile.write("Cubic spline interpolation coefficients\n")
-                openedfile.write("i, Segment, a_i, b_i, c_i, d_i\n")
-                for i in range(nSegments):
-                    openedfile.write("%d, %.2f to %.2f, %.6e, %.6e, %.6e, %.6e\n" % (i, self.CSfit.x[i], self.CSfit.x[i+1], self.CScoefficients[3, i], self.CScoefficients[2, i], self.CScoefficients[1, i], self.CScoefficients[0, i]))
-                openedfile.write("\n")
-
-                openedfile.write("Cubic spline interpolated data\n")
-                openedfile.write("Interpolated wavelength, Interpolated irradiance\n")
-                for i, (wavelength, irradiance) in enumerate(zip(self.CSinterpWavelengths, self.CSinterpIrradiances)):
-                    openedfile.write("%.2f, %.6e\n" % (wavelength, irradiance))
-                openedfile.write("\n")
-
-                openedfile.write("Measured data\n")
-                openedfile.write("Wavelength, Irradiance\n")
-                for i, (wavelength, irradiance) in enumerate(zip(self.wavelengths, self.irradiances)):
-                    openedfile.write("%.2f, %.6e\n" % (wavelength, irradiance))
-                self.EvalComplete.setText("Interpolation complete! Results are stored at: %s" % (self.CSinterpfile))
-                self.EvalComplete.show()
-                subprocess.Popen(r"explorer /select,%s" % (Path(self.CSinterpfile)))
-        except Exception as err:
-            raise err
-        pass
-
     def ResetGBChart(self):
         self.ui.GBChart.Figure.clear()
         self.ax_GBResiduals = self.ui.GBChart.Figure.add_subplot(2, 1, 2)
@@ -688,24 +442,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.ax_GBResiduals.grid()
         self.ui.GBChart.Figure.subplots_adjust(hspace=0.1, left=0.185, right=0.95, bottom=0.13, top=0.99)
         self.ui.GBChart.Canvas.draw()
-
-    def ResetCSChart(self):
-        self.ui.CSChart.Figure.clear()
-        # self.ax_CSResiduals = self.ui.CSChart.Figure.add_subplot(2, 1, 2)
-        # self.ax_CSIrradiance = self.ui.CSChart.Figure.add_subplot(2, 1, 1, sharex=self.ax_CSResiduals)
-        self.ax_CSIrradiance = self.ui.CSChart.Figure.add_subplot(1, 1, 1)
-        self.ax_CSIrradiance.measLine, = self.ax_CSIrradiance.plot([], [])
-        self.ax_CSIrradiance.fitLine, = self.ax_CSIrradiance.plot([], [])
-        # self.ax_CSResiduals.line, = self.ax_CSResiduals.plot([], [])
-        self.ax_CSIrradiance.set_ylabel(r"Irradiance ($\frac{W}{cm^{3}})$")
-        # self.ax_CSIrradiance.set_xticklabels([])
-        self.ax_CSIrradiance.set_xlabel("Wavelength (nm)")
-        self.ax_CSIrradiance.grid()
-        # self.ax_CSResiduals.set_ylabel(r"Residuals ($\frac{W}{cm^{3}}$)")
-        # self.ax_CSResiduals.set_xlabel("Wavelength (nm)")
-        # self.ax_CSResiduals.grid()
-        self.ui.CSChart.Figure.subplots_adjust(hspace=0.05, left=0.185, right=0.95, bottom=0.13, top=0.99)
-        self.ui.CSChart.Canvas.draw()
 
     def UpdateGBChart(self):
         self.ResetGBChart()
@@ -746,35 +482,6 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.ax_GBResiduals.set_ylabel(r"Fit residuals ($\frac{W}{cm^{3}}$)")
 
         self.ui.GBChart.Canvas.draw()
-
-    def UpdateCSChart(self):
-        self.ResetCSChart()
-        i_lowerBound, i_upperBound = IIF.WavelengthRegionIndex(
-            self.wavelengths,
-            (float(self.ui.combo_CSLowerWL.currentText()), float(self.ui.combo_CSUpperWL.currentText())),
-        )
-        residuals = self.CSfit(self.wavelengths[i_lowerBound:i_upperBound]) - self.irradiances[i_lowerBound:i_upperBound]
-        self.ax_CSIrradiance.measLine, = self.ax_CSIrradiance.plot(
-            self.wavelengths[i_lowerBound:i_upperBound],
-            self.irradiances[i_lowerBound:i_upperBound],
-            label="Measurements",
-            marker=GUIvar.markerType,
-            markersize=GUIvar.markerSize,
-            markeredgecolor=GUIvar.markerEdgeColor,
-            markerfacecolor=GUIvar.markerFaceColor,
-            linestyle="None",
-        )
-        self.ax_CSIrradiance.fitLine, = self.ax_CSIrradiance.plot(
-            self.CSinterpWavelengths,
-            self.CSinterpIrradiances,
-            label="Interpolated fit",
-            color=GUIvar.fitLineColor,
-            linewidth=GUIvar.fitLinewidth,
-        )
-        self.ax_CSIrradiance.set_ylabel(r"Irradiance ($\frac{W}{cm^{3}})$")
-        self.ax_CSIrradiance.legend()
-
-        self.ui.CSChart.Canvas.draw()
 
     def Clicked_QUIT(self):
         self.close()
