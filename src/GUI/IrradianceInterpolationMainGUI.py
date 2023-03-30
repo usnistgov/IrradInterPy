@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from datetime import datetime
 import subprocess
@@ -44,6 +45,10 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.GBinterpWavelengths = []
         self.GBinterpIrradiances = []
         self.GBinterpfile = ""
+        if GUIvar.defaultDatafilePath == "":
+            self.defaultDatafilePath = os.path.expanduser(os.getenv("USERPROFILE"))
+        else:
+            self.defaultDatafilePath = GUIvar.defaultDatafilePath
 
         # chart setups
         self.ui.GBChart.Figure = Figure()
@@ -134,7 +139,7 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
 
     def Clicked_OpenDatafile(self):
         try:
-            tempstr, _ = QtWidgets.QFileDialog.getOpenFileName()
+            tempstr, _ = QtWidgets.QFileDialog.getOpenFileName(directory=self.defaultDatafilePath)
             if tempstr != "":
                 self.InputFilename = Path(tempstr)
                 self.wavelengths, self.irradiances = IIF.ParseDatafile(self.InputFilename)
@@ -408,8 +413,8 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
                 openedfile.write("b, %.12e, %.12e\n" % (self.GBb, self.abUncertainty[1]))
                 openedfile.write("\n")
 
-                openedfile.write("Peak wavelength = %.1f\n" % (IIF.PeakWavelength(self.GBinterpWavelengths, self.GBinterpIrradiances)))
-                openedfile.write("Apparent blackbody temperature = %.1f\n\n" % (self.GBBBtemperature))
+                #openedfile.write("Peak wavelength = %.1f\n" % (IIF.PeakWavelength(self.GBinterpWavelengths, self.GBinterpIrradiances)))
+                #openedfile.write("Apparent blackbody temperature = %.1f\n\n" % (self.GBBBtemperature))
 
                 openedfile.write("Gray body interpolated data\n")
                 openedfile.write("Interpolated wavelength, Interpolated irradiance\n")
