@@ -63,7 +63,7 @@
         </size>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Datafile requirements&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The datafile can be CSV, tab- or space-delimited. All types can be with or without a header. The first column must contain wavelengths with units nanometers, and the second column must contain irradiances with units W/cm&lt;span style=&quot; vertical-align:super;&quot;&gt;3&lt;/span&gt; or W/cm&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; cm.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;No text can appear underneath the data rows--the program only strips header.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Datafile requirements&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The datafile can be CSV, tab- or space-delimited. All types can be with or without a header. The first column must contain wavelengths with units nanometers, and the second column must contain irradiances with units W/cm&lt;span style=&quot; vertical-align:super;&quot;&gt;3&lt;/span&gt; or W/cm&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; cm.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;No text can appear underneath the data rows--the program only strips headers.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
