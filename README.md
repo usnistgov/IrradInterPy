@@ -4,7 +4,8 @@ IrradInterPy is an interpolation program for irradiance data from 250 nm to 2500
 
 The GUI, when data has been read and interpolated, appears in Figure 1
 
-![**Figure 1:** IrradInterPy GUI with loaded and interpolated data](images/Main-350to900.png)
+![Figure 1](images/Main-350to900.png)
+**Figure 1:** IrradInterPy GUI with loaded and interpolated data
 
 Data read into the program must be in CSV or TXT format, either comma- or tab-delimited. The first column must contain wavelengths, and the second column must contain irradiance. The program will strip out any header data, but there must not be any additional data below rows of wavelengths and irradiance.
 
