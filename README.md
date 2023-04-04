@@ -38,7 +38,7 @@ Inputs to the `GrayBodyCoefficients` function are:
 * wavelengths - list/array of wavelengths, units of nanometers
 * irradiances - list/array of irradiance measurements, units of W cm$^{-3}$ sr$^{-1}$
 * (lowerBound, upperBound) - tuple of lower and upper wavelength bounds to fit over
-* DegreesOfFreedom - fit degrees of freedom, determines number of coefficients of A $_n$
+* DegreesOfFreedom - fit degrees of freedom, determines number of coefficients of A$_n$
 
 Returned from `GrayBodyCoefficients` are:
 * list of coefficients of A$_n$
