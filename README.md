@@ -2,7 +2,7 @@
 ## About
 IrradInterPy is an interpolation program for irradiance data from 250 nm to 2500 nm using a gray body model for nonlinear least squares fitting, and returns coefficients for that fit and interpolated data in user-defined steps. Both fit coefficients and interpolation results are written to a CSV, along with uncertainty in each coefficient.
 
-The GUI, when data has been read and interpolated, appears in Figure 1
+The GUI, when data has been read and interpolated, appears in Figure 1.
 
 <p align="center">
     <img src=images/Main-350to900.png>
@@ -22,7 +22,7 @@ $$\ln{E_\lambda \lambda^5 = a + \frac{b}{\lambda}}$$
 Additionally, the coefficients $A_0$, $A_1$, ... , $A_n$ are determined with $\frac{1}{E_\lambda^2}$ weighting, using an assumption of constant relative measurement error (see NBS TN 594-13 in Documentation).
 
 ## How to use
-IrradInterPy requires the following libraries and their dependencies:
+IrradInterPy requires Python >= 3.9.16 and the following libraries with their dependencies:
 * NumPy >= 1.23.3
 * SciPy >= 1.9.1
 
@@ -64,5 +64,3 @@ Inputs to the `GrayBodyInterpolation` function are:
  * list of coefficients of A$_n$
  * coefficient $a$
  * coefficient $b$
-
-
