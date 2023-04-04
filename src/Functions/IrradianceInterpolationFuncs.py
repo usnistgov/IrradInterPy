@@ -194,7 +194,7 @@ def GrayBodyCoefficients(wavelength, irradiance, region, dof):
     ----------------------------------------------------------------------------
     Inputs
         wavelength  - array of wavelengths. Expected units: nm
-        irradiance  - array irradiances. Expected units: W/cm**-3
+        irradiance  - array irradiances. Expected units: W cm^-3 sr^-1
         region      - 1x2 array or tuple of start/stop wavelengths for the interpolation. syntax is [start, stop]. Expected units: nm
         dof         - degrees of freedom for gray body coefficient fitting
 
@@ -240,7 +240,7 @@ def GrayBodyInterpolation(region, a, b, coefficients, step):
     ----------------------------------------------------------------------------
     Returns
         wavelengths     - array of wavelengths used in interpolation. Units: nm
-        irradiances     - array of iraddiances from the interpolation. Units: W/cm**-3
+        irradiances     - array of iraddiances from the interpolation. Units: W cm^-3 sr^-1
     """
     wavelengths = np.arange(region[0], region[1]+step, step).astype(float)
     return wavelengths, __GrayBody__(a, b)(wavelengths, *coefficients)
@@ -262,7 +262,7 @@ def WavelengthRegionIndex(wavelength, region):
     ----------------------------------------------------------------------------
     Inputs
         wavelength  - array of wavelengths. Expected units: nm
-        irradiance  - array irradiances. Expected units: W/cm**-3
+        irradiance  - array irradiances. Expected units: W cm^-3 sr^-1
 
     ----------------------------------------------------------------------------
     Returns
@@ -288,14 +288,14 @@ def CubicSplineInterpolation(wavelength, irradiance, region, step):
     ----------------------------------------------------------------------------
     Inputs
         wavelength  - array of wavelengths. Expected units: nm
-        irradiance  - array irradiances. Expected units: W/cm**-3
+        irradiance  - array irradiances. Expected units: W cm**-3 sr^-1
         region      - 1x2 array or tuple of start/stop wavelengths for the interpolation. syntax is [start, stop]. Expected units: nm
         step        - step size to perform interpolation
 
     ----------------------------------------------------------------------------
     Returns
         wavelengths     - array of wavelengths used in interpolation. Units: nm
-        irradiances     - array of iraddiances from the interpolation. Units: W/cm**-3
+        irradiances     - array of iraddiances from the interpolation. Units: W cm^-3 sr^-1
         f.c             - cubic spline coefficients used in interpolation
         f               - cubic spline fit (scipy object)
     """
@@ -324,7 +324,7 @@ def ApparentBBTemp(wavelengths, irradiances):
     ----------------------------------------------------------------------------
     Inputs
         wavelengths  - array of wavelengths. Expected units: nm
-        irradiances  - array irradiances. Expected units: W/cm**-3
+        irradiances  - array irradiances. Expected units: W cm^-3 sr^-1
 
     ----------------------------------------------------------------------------
     Returns
