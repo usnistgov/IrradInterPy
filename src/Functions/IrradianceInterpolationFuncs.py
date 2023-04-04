@@ -215,7 +215,7 @@ def GrayBodyCoefficients(wavelength, irradiance, region, dof):
     U_coeff = UncertaintyFromCovariance(coeff_covariance)
     return coefficients_GrayBody, U_coeff, a, b, U_ab
 
-def GrayBodyInterpolation(region, a, b, coefficients, step):
+def GrayBodyInterpolation(region, coefficients, a, b, step):
     """
     Performs interpolation on wavelength-irradiance data to generate coefficients and their uncertainties using the gray body model
 
@@ -232,9 +232,9 @@ def GrayBodyInterpolation(region, a, b, coefficients, step):
     ----------------------------------------------------------------------------
     Inputs
         region          - 1x2 array or tuple of start/stop wavelengths for the interpolation. syntax is [start, stop]. Expected units: nm
+        coefficients    - C coefficients in the gray body model
         a               - coefficient in gray body model, related to gray body emissivity with e**a
         b               - coefficient in gray body model, related to reciprocal of temperature distribution
-        coefficients    - C coefficients in the gray body model
         step            - step size to perform interpolation
 
     ----------------------------------------------------------------------------

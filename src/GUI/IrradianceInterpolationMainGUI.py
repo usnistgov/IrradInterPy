@@ -326,9 +326,9 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         )
         self.GBinterpWavelengths, self.GBinterpIrradiances = IIF.GrayBodyInterpolation(
             (float(self.ui.combo_GBLowerWL.currentText()), float(self.ui.combo_GBUpperWL.currentText())),
+            self.GBcoefficients,
             self.GBa,
             self.GBb,
-            self.GBcoefficients,
             float(self.ui.lineEdit_GBStep.text()),
         )
         self.GBBBtemperature = IIF.ApparentBBTemp(self.GBinterpWavelengths, self.GBinterpIrradiances)
