@@ -5,3 +5,5 @@ The gray body model used to fit data is
 where the coefficients $a$ and $b$ are determined separately with
 
 $$\ln{E_\lambda \lambda^5 = a + \frac{b}{\lambda}}$$
+
+Additionally, the coefficients $A_0$, $A_1$, ..., $A_n$ are determined with $\frac{1}{E_\lambda^2}$ weighting for an assumption of constant percentage measurement error.
