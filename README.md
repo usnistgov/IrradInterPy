@@ -36,13 +36,13 @@ Fit coefficients are determined with `GBcoefficients, GBuncertainty, GBa, GBb, a
 
 Inputs to the `GrayBodyCoefficients` function are:
 * wavelengths - list/array of wavelengths, units of nanometers
-* irradiances - list/array of irradiance measurements, units of W cm $^{-3}$ sr $^{-1}$
+* irradiances - list/array of irradiance measurements, units of W cm$^{-3}$ sr$^{-1}$
 * (lowerBound, upperBound) - tuple of lower and upper wavelength bounds to fit over
 * DegreesOfFreedom - fit degrees of freedom, determines number of coefficients of A $_n$
 
 Returned from `GrayBodyCoefficients` are:
-* list of coefficients of A $_n$
-* uncertainty in A $_n$
+* list of coefficients of A$_n$
+* uncertainty in A$_n$ coefficients
 * coefficient $a$
 * coefficient $b$
 * uncertainty in coefficients $a$ and $b$
@@ -51,7 +51,7 @@ Perform the interpolation with `GBinterpWavelengths, GBinterpIrradiances = IIF.G
 
 Inputs to the `GrayBodyInterpolation` function are:
 * (lowerBound, upperBound) - tuple of lower and upper wavelength bounds to interpolate over
- * list of coefficients of A $_n$
+ * list of coefficients of A$_n$
  * coefficient $a$
  * coefficient $b$
 
