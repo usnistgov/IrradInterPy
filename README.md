@@ -2,6 +2,10 @@
 ## About
 IrradInterPy is an interpolation program for irradiance data from 250 nm to 2500 nm using a gray body model for nonlinear least squares fitting, and returns coefficients for that fit and interpolated data in user-defined steps. Both fit coefficients and interpolation results are written to a CSV, along with uncertainty in each coefficient.
 
+The GUI, when data has been read and interpolated, appears in Figure 1
+
+![**Figure 1:** IrradInterPy GUI with loaded and interpolated data](images/Main-350to900.png)
+
 Data read into the program must be in CSV or TXT format, either comma- or tab-delimited. The first column must contain wavelengths, and the second column must contain irradiance. The program will strip out any header data, but there must not be any additional data below rows of wavelengths and irradiance.
 
 The gray body model used to nonlinear least squares fit the measurement data is 
@@ -25,7 +29,10 @@ To use the GUI, additional libraries and their dependencies are required:
 
 The environment file, `IrradInterPy.yaml` will specifiy all required libraries for use of the interpolation functions and GUI.
 
-There are two ways to use IrradInterPy: [directly with functions library](#UseLibrary), or [with the GUI](#LaunchGUI)
+There are two ways to use IrradInterPy: [with the GUI](#LaunchGUI), or [directly with functions library](#UseLibrary)
+
+### How to launch GUI <a class="anchor" id=LaunchGUI></a>
+With `src` as the root folder, 
 
 ### How to import and use library <a class="anchor" id=UseLibrary></a>
 With `src` as the root folder, use `import Functions.IrradianceInterpolationFuncs as IIF`. 
@@ -55,6 +62,4 @@ Inputs to the `GrayBodyInterpolation` function are:
  * coefficient $a$
  * coefficient $b$
 
-### How to launch GUI <a class="anchor" id=LaunchGUI></a>
-With `src` as the root folder, 
 
