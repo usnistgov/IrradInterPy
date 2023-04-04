@@ -1,0 +1,1 @@
+$$ E_\lambda = (A_0 + A_1 \lambda + A_2 \lambda^2 + ... + A_n \lambda^n) \lambda^{-5} exp^(a + \frac{b}{\lambda}}) $$
