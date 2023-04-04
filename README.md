@@ -25,7 +25,7 @@ To use the GUI, additional libraries and their dependencies are required:
 
 The environment file, `IrradInterPy.yaml` will specifiy all required libraries for use of the interpolation functions and GUI.
 
-There are two ways to use IrradInterPy: [with the GUI](#LaunchGUI), or [directly with functions library](#UseLibrary)
+There are two ways to use IrradInterPy: [directly with functions library](#UseLibrary), or [with the GUI](#LaunchGUI)
 
 ### How to import and use library <a class="anchor" id=UseLibrary></a>
 With `src` as the root folder, use `import Functions.IrradianceInterpolationFuncs as IIF`. 
