@@ -75,4 +75,4 @@ Inputs to the `GrayBodyInterpolation` function are:
  * coefficient $a$
  * coefficient $b$
 
- ### General guidance for the interpolation
+ ### General guidance for irradiance interpolation
