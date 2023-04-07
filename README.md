@@ -2,12 +2,12 @@
 ## Table of Contents
 * [About](#about)
 * [Python requirements](#requirements)
-* [How to use](#HowToUse)
-    - [How to launch GUI](#LaunchGUI)
-    - [How to import and use library (no GUI)](#UseLibrary)
+* [How to use](#howToUse)
+    - [How to launch GUI](#launchGUI)
+    - [How to import and use library (no GUI)](#useLibrary)
 * [General guidance for irradiance interpolation](#guidance)
 
-## About <a class="anchor" id=#about></a>
+## About <a class="anchor" id=about></a>
 IrradInterPy is an interpolation program for irradiance data from 250 nm to 2500 nm using a gray body model for nonlinear least squares fitting, and returns coefficients for that fit and interpolated data in user-defined steps. Both fit coefficients and interpolation results are written to a CSV, along with uncertainty in each coefficient.
 
 The GUI, when data has been read and interpolated, appears in Figure 1.
@@ -45,7 +45,7 @@ The virtual environment file, `IrradInterPy.yaml` will specifiy all required lib
 ## How to use <a class="anchor" id=HowToUse></a>
 There are two ways to use IrradInterPy: [with the GUI](#LaunchGUI), or [directly with functions library](#UseLibrary)
 
-### How to launch GUI <a class="anchor" id=LaunchGUI></a>
+### How to launch GUI <a class="anchor" id=launchGUI></a>
 With `src` as the root folder in a terminal that has the IrradInterPy python virtual environment in its path, use `python IrradInterPy.py` to launch the GUI. Read data into the program with `File > Open datafile ...` where a dialog opens to navigate and select the datafile.
 
 In the GUI, each time a selection is made, e.g. changing the interpolation step size, the coefficients, interpolation, and visualization update automatically.
@@ -56,7 +56,7 @@ Next, select the lower and upper wavelength bounds to apply the interpolation ov
 
 Last, use the `Write gray body interpolation to file` button below the interpolation results table to generate a CSV containing the fit coefficients and interpolation results. A dialog will appear that allows naming and locating the output CSV file.
 
-### How to import and use library (no GUI) <a class="anchor" id=UseLibrary></a>
+### How to import and use library (no GUI) <a class="anchor" id=useLibrary></a>
 With `src` as the root folder, use `import Functions.IrradianceInterpolationFuncs as IIF`. 
 
 Read measurement data into Python with `wavelengths, irradiances = IIF.ParseDatafile(filename)`
