@@ -1,5 +1,13 @@
 # IrradInterPy: Irrad(iance) Inter(polation) Py(thon)
-## About
+## Table of Contents
+* [About](#about)
+* [Python requirements](#requirements)
+* [How to use](#HowToUse)
+    - [How to launch GUI](#LaunchGUI)
+    - [How to import and use library (no GUI)](#UseLibrary)
+* [General guidance for irradiance interpolation](#guidance)
+
+## About <a class="anchor" id=#about></a>
 IrradInterPy is an interpolation program for irradiance data from 250 nm to 2500 nm using a gray body model for nonlinear least squares fitting, and returns coefficients for that fit and interpolated data in user-defined steps. Both fit coefficients and interpolation results are written to a CSV, along with uncertainty in each coefficient.
 
 The GUI, when data has been read and interpolated, appears in Figure 1.
@@ -21,7 +29,7 @@ $$\ln{E_\lambda \lambda^5 = a + \frac{b}{\lambda}}$$
 
 Additionally, the coefficients A<sub>0</sub>, A<sub>1</sub>, ... , A<sub>n</sub> are determined with $\frac{1}{E_\lambda^2}$ weighting, using an assumption of constant relative measurement error (see NBS TN 594-13 in Documentation).
 
-## How to use
+## Python requirements <a class="anchor" id=requirements></a>
 IrradInterPy requires Python >= 3.9.16 and the following libraries with their dependencies:
 * NumPy >= 1.23.3
 * SciPy >= 1.9.1
@@ -34,6 +42,7 @@ The virtual environment file, `IrradInterPy.yaml` will specifiy all required lib
 
 **Note:** older versions of these libraries and Python may work, but are untested.
 
+## How to use <a class="anchor" id=HowToUse></a>
 There are two ways to use IrradInterPy: [with the GUI](#LaunchGUI), or [directly with functions library](#UseLibrary)
 
 ### How to launch GUI <a class="anchor" id=LaunchGUI></a>
@@ -75,4 +84,4 @@ Inputs to the `GrayBodyInterpolation` function are:
  * coefficient $a$
  * coefficient $b$
 
- ### General guidance for irradiance interpolation
+ ## General guidance for irradiance interpolation <a class="anchor" id=guidance></a>
