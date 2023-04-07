@@ -41,7 +41,7 @@ With `src` as the root folder in a terminal that has the IrradInterPy python vir
 
 In the GUI, each time a selection is made, e.g. changing the interpolation step size, the coefficients, interpolation, and visualization update automatically.
 
-First, select the lower and upper wavelength bounds to apply the fit over, and the degrees of freedom of the fit. The degrees of freedom selection dictates the number of A$_n$ coefficients.
+First, select the lower and upper wavelength bounds to apply the fit over, and the degrees of freedom of the fit. The degrees of freedom selection dictates the number of A<sup>_n</sup> coefficients.
 
 Next, select the lower and upper wavelength bounds to apply the interpolation over, and enter the desired interpolation step. Because extrapolation can easily produce poor results from this fit, when selecting a wavelength bound of interpolation that is outside the region of the fit, the fit will automatically change to the interpolation bounds.
 
