@@ -41,7 +41,7 @@ With `src` as the root folder in a terminal that has the IrradInterPy python vir
 
 In the GUI, each time a selection is made, e.g. changing the interpolation step size, the coefficients, interpolation, and visualization update automatically.
 
-First, select the lower and upper wavelength bounds to apply the fit over, and the degrees of freedom of the fit. The degrees of freedom selection dictates the number of A<sup>_n</sup> coefficients.
+First, select the lower and upper wavelength bounds to apply the fit over, and the degrees of freedom of the fit. The degrees of freedom selection dictates the number of A<sup>n</sup> coefficients.
 
 Next, select the lower and upper wavelength bounds to apply the interpolation over, and enter the desired interpolation step. Because extrapolation can easily produce poor results from this fit, when selecting a wavelength bound of interpolation that is outside the region of the fit, the fit will automatically change to the interpolation bounds.
 
@@ -56,13 +56,13 @@ Fit coefficients are determined with `GBcoefficients, GBuncertainty, GBa, GBb, a
 
 Inputs to the `GrayBodyCoefficients` function are:
 * wavelengths - list/array of wavelengths, units of nanometers
-* irradiances - list/array of irradiance measurements, units of W cm$^{-3}$ sr$^{-1}$
+* irradiances - list/array of irradiance measurements, units of W cm<sup>-3</sup> sr<sup>-1</sup>
 * (lowerBound, upperBound) - tuple of lower and upper wavelength bounds to fit over
-* DegreesOfFreedom - fit degrees of freedom, determines number of coefficients of A$_n$
+* DegreesOfFreedom - fit degrees of freedom, determines number of coefficients of A<sup>n</sup>
 
 Returned from `GrayBodyCoefficients` are:
-* list of coefficients of A$_n$
-* uncertainty in A$_n$ coefficients
+* list of coefficients of A<sup>n</sup>
+* uncertainty in A<sup>n</sup> coefficients
 * coefficient $a$
 * coefficient $b$
 * uncertainty in coefficients $a$ and $b$
@@ -71,7 +71,7 @@ Perform the interpolation with `GBinterpWavelengths, GBinterpIrradiances = IIF.G
 
 Inputs to the `GrayBodyInterpolation` function are:
 * (lowerBound, upperBound) - tuple of lower and upper wavelength bounds to interpolate over
- * list of coefficients of A$_n$
+ * list of coefficients of A<sup>n</sup>
  * coefficient $a$
  * coefficient $b$
 
