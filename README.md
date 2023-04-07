@@ -47,7 +47,7 @@ Next, select the lower and upper wavelength bounds to apply the interpolation ov
 
 Last, use the `Write gray body interpolation to file` button below the interpolation results table to generate a CSV containing the fit coefficients and interpolation results. A dialog will appear that allows naming and locating the output CSV file.
 
-### How to import and use library <a class="anchor" id=UseLibrary></a>
+### How to import and use library (no GUI) <a class="anchor" id=UseLibrary></a>
 With `src` as the root folder, use `import Functions.IrradianceInterpolationFuncs as IIF`. 
 
 Read measurement data into Python with `wavelengths, irradiances = IIF.ParseDatafile(filename)`
