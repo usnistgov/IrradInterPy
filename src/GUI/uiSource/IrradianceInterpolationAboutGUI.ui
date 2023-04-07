@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>NIST Irradiance Interpolation - About</string>
+   <string>NIST Irradiance Interpolation - About IrradInterPy</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">

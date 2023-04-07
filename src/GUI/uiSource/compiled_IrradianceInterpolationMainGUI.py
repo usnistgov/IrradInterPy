@@ -255,7 +255,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "NIST Irradiance Interpolation"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "NIST Irradiance Interpolation (IrradInterPy)"))
         self.pushButton_GBEvaluate.setText(_translate("MainWindow", "Write gray body interpolation to file"))
         self.groupBox_GBinterpolation.setTitle(_translate("MainWindow", "Gray body interpolation parameters"))
         self.label_GBLowerWL.setText(_translate("MainWindow", "Lower wavelength"))
