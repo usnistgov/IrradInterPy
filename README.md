@@ -30,14 +30,14 @@ To use the GUI, additional libraries and their dependencies are required:
 * PyQT5 >= 5.15.7
 * matplotlib >= 3.5.2
 
-The environment file, `IrradInterPy.yaml` will specifiy all required libraries for use of the interpolation functions and GUI.
+The virtual environment file, `IrradInterPy.yaml` will specifiy all required libraries for use of the interpolation functions and GUI.
 
 **Note:** older versions of these libraries and Python may work, but are untested.
 
 There are two ways to use IrradInterPy: [with the GUI](#LaunchGUI), or [directly with functions library](#UseLibrary)
 
 ### How to launch GUI <a class="anchor" id=LaunchGUI></a>
-With `src` as the root folder, use `python IrradInterPy.py` to launch the GUI. Read data into the program with `File > Open datafile ...` where a dialog opens to navigate and select the datafile.
+With `src` as the root folder in a terminal that has the IrradInterPy python virtual environment in its path, use `python IrradInterPy.py` to launch the GUI. Read data into the program with `File > Open datafile ...` where a dialog opens to navigate and select the datafile.
 
 In the GUI, each time a selection is made, e.g. changing the interpolation step size, the coefficients, interpolation, and visualization update automatically.
 
