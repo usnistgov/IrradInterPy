@@ -37,7 +37,15 @@ The environment file, `IrradInterPy.yaml` will specifiy all required libraries f
 There are two ways to use IrradInterPy: [with the GUI](#LaunchGUI), or [directly with functions library](#UseLibrary)
 
 ### How to launch GUI <a class="anchor" id=LaunchGUI></a>
-With `src` as the root folder, 
+With `src` as the root folder, use `python IrradInterPy.py` to launch the GUI. Read data into the program with `File > Open datafile ...` where a dialog opens to navigate and select the datafile.
+
+In the GUI, each time a selection is made, e.g. changing the interpolation step size, the coefficients, interpolation, and visualization update automatically.
+
+First, select the lower and upper wavelength bounds to apply the fit over, and the degrees of freedom of the fit. The degrees of freedom selection dictates the number of A$_n$ coefficients.
+
+Next, select the lower and upper wavelength bounds to apply the interpolation over, and enter the desired interpolation step. Because extrapolation can easily produce poor results from this fit, when selecting a wavelength bound of interpolation that is outside the region of the fit, the fit will automatically change to the interpolation bounds.
+
+Last, use the `Write gray body interpolation to file` button below the interpolation results table to generate a CSV containing the fit coefficients and interpolation results. A dialog will appear that allows naming and locating the output CSV file.
 
 ### How to import and use library <a class="anchor" id=UseLibrary></a>
 With `src` as the root folder, use `import Functions.IrradianceInterpolationFuncs as IIF`. 
@@ -66,3 +74,5 @@ Inputs to the `GrayBodyInterpolation` function are:
  * list of coefficients of A$_n$
  * coefficient $a$
  * coefficient $b$
+
+ ### General guidance for the interpolation
