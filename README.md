@@ -19,7 +19,7 @@ where the coefficients $a$ and $b$ are determined separately by least squares fi
 
 $$\ln{E_\lambda \lambda^5 = a + \frac{b}{\lambda}}$$
 
-Additionally, the coefficients $A_0$, $A_1$, ... , $A_n$ are determined with $\frac{1}{E_\lambda^2}$ weighting, using an assumption of constant relative measurement error (see NBS TN 594-13 in Documentation).
+Additionally, the coefficients A<sub>0</sub>, A<sub>1</sub>, ... , A<sub>n</sub> are determined with $\frac{1}{E_\lambda^2}$ weighting, using an assumption of constant relative measurement error (see NBS TN 594-13 in Documentation).
 
 ## How to use
 IrradInterPy requires Python >= 3.9.16 and the following libraries with their dependencies:
@@ -41,7 +41,7 @@ With `src` as the root folder in a terminal that has the IrradInterPy python vir
 
 In the GUI, each time a selection is made, e.g. changing the interpolation step size, the coefficients, interpolation, and visualization update automatically.
 
-First, select the lower and upper wavelength bounds to apply the fit over, and the degrees of freedom of the fit. The degrees of freedom selection dictates the number of A<sup>n</sup> coefficients.
+First, select the lower and upper wavelength bounds to apply the fit over, and the degrees of freedom of the fit. The degrees of freedom selection dictates the number of A<sub>n</sub> coefficients.
 
 Next, select the lower and upper wavelength bounds to apply the interpolation over, and enter the desired interpolation step. Because extrapolation can easily produce poor results from this fit, when selecting a wavelength bound of interpolation that is outside the region of the fit, the fit will automatically change to the interpolation bounds.
 
@@ -58,11 +58,11 @@ Inputs to the `GrayBodyCoefficients` function are:
 * wavelengths - list/array of wavelengths, units of nanometers
 * irradiances - list/array of irradiance measurements, units of W cm<sup>-3</sup> sr<sup>-1</sup>
 * (lowerBound, upperBound) - tuple of lower and upper wavelength bounds to fit over
-* DegreesOfFreedom - fit degrees of freedom, determines number of coefficients of A<sup>n</sup>
+* DegreesOfFreedom - fit degrees of freedom, determines number of coefficients of A<sub>n</sub>
 
 Returned from `GrayBodyCoefficients` are:
-* list of coefficients of A<sup>n</sup>
-* uncertainty in A<sup>n</sup> coefficients
+* list of coefficients of A<sub>n</sub>
+* uncertainty in A<sub>n</sub> coefficients
 * coefficient $a$
 * coefficient $b$
 * uncertainty in coefficients $a$ and $b$
@@ -71,7 +71,7 @@ Perform the interpolation with `GBinterpWavelengths, GBinterpIrradiances = IIF.G
 
 Inputs to the `GrayBodyInterpolation` function are:
 * (lowerBound, upperBound) - tuple of lower and upper wavelength bounds to interpolate over
- * list of coefficients of A<sup>n</sup>
+ * list of coefficients of A<sub>n</sub>
  * coefficient $a$
  * coefficient $b$
 
