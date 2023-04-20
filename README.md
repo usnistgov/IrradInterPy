@@ -85,3 +85,4 @@ Inputs to the `GrayBodyInterpolation` function are:
  * coefficient $b$
 
  ## General guidance for irradiance interpolation <a class="anchor" id=guidance></a>
+ Most fits with this model are best performed in sections and used as piecewise functions while maintaining an overlap in the fit data. Applying a single fit to 200 nm to 2400 nm generally does not produce a better fit than breaking the data up into regions and applying a separate fit to each region. For example, a fit of 200 nm to 410 nm data gives a fit for 200 nm to 400 nm, 390 nm to 810 nm gives a fit for 400 to 800 nm, etc. 
