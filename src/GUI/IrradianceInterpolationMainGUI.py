@@ -10,9 +10,9 @@ from GUI.uiSource import compiled_IrradianceInterpolationMainGUI
 from GUI.uiSource import compiled_IrradianceInterpolationAboutGUI
 from GUI.uiSource import compiled_IrradianceInterpolationDatafileRequirementsGUI
 from GUI.uiSource import compiled_IrradianceInterpolationHowToUseGUI
-import version
 from Functions import IrradianceInterpolationFuncs as IIF
 from var import GUIvar
+from var import version
 
 class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
     def __init__(self):
