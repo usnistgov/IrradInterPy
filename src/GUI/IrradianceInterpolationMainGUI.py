@@ -4,6 +4,7 @@ from datetime import datetime
 import subprocess
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+import matplotlib
 from PyQt5 import QtWidgets, QtCore
 from GUI.uiSource import compiled_IrradianceInterpolationMainGUI
 from GUI.uiSource import compiled_IrradianceInterpolationAboutGUI
@@ -31,6 +32,7 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.ui.tableWidget_GBInterpolation.resizeColumnsToContents()
         self.GBcoeffTableHeaders = ["Coefficient", "Value", "Uncertainty (k=1)"]
         self.GBinterpTableHeaders = ["Wavelength (nm)", "Interpolated Irradiance (W/cm^3)"]
+        matplotlib.rcParams.update({"figure.autolayout": True})
 
         # variable initialization
         self.InputFilename = ""
