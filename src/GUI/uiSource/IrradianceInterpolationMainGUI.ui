@@ -347,14 +347,14 @@
               <layout class="QGridLayout" name="gridLayout_7">
                <item row="1" column="0">
                 <layout class="QFormLayout" name="formLayout">
-                 <item row="0" column="0">
+                 <item row="1" column="0">
                   <widget class="QLabel" name="label_GBcoefficients">
                    <property name="text">
                     <string>Gray body coefficients</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="0" colspan="2">
+                 <item row="2" column="0" colspan="2">
                   <widget class="QTableWidget" name="tableWidget_GBCoefficients">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -385,14 +385,14 @@
                    </column>
                   </widget>
                  </item>
-                 <item row="3" column="0">
+                 <item row="4" column="0">
                   <widget class="QLabel" name="label_GBinterpolation">
                    <property name="text">
                     <string>Gray body fit interpolation</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="4" column="0" colspan="2">
+                 <item row="5" column="0" colspan="2">
                   <widget class="QTableWidget" name="tableWidget_GBInterpolation">
                    <property name="enabled">
                     <bool>true</bool>
@@ -421,7 +421,7 @@
                    </column>
                   </widget>
                  </item>
-                 <item row="2" column="0" colspan="2">
+                 <item row="3" column="0" colspan="2">
                   <spacer name="horizontalSpacer">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -433,6 +433,13 @@
                     </size>
                    </property>
                   </spacer>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_fitModel">
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Irradiance from fit:&lt;span style=&quot; font-size:10pt;&quot;&gt; E&lt;/span&gt;&lt;span style=&quot; font-size:10pt; vertical-align:sub;&quot;&gt;λ&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; = (A&lt;/span&gt;&lt;span style=&quot; font-size:10pt; vertical-align:sub;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; + A&lt;/span&gt;&lt;span style=&quot; font-size:10pt; vertical-align:sub;&quot;&gt;1&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;λ + A&lt;/span&gt;&lt;span style=&quot; font-size:10pt; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;λ&lt;/span&gt;&lt;span style=&quot; font-size:10pt; vertical-align:super;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; + ... + A&lt;/span&gt;&lt;span style=&quot; font-size:10pt; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;λ&lt;/span&gt;&lt;span style=&quot; font-size:10pt; vertical-align:super;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;) λ&lt;/span&gt;&lt;span style=&quot; font-size:10pt; vertical-align:super;&quot;&gt;-5&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; e&lt;/span&gt;&lt;span style=&quot; font-size:10pt; vertical-align:super;&quot;&gt;a + b/a&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
