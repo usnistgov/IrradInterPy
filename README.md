@@ -4,7 +4,7 @@
 * [Python requirements](#requirements)
 * [How to use](#howToUse)
     - [How to launch GUI with executable](#launchExe)
-    - [How to launch GUI with Python script](#launchGUI)
+    - [How to launch GUI with Python script](#launchScript)
     - [How to import and use library (no GUI)](#useLibrary)
 * [General guidance for irradiance interpolation](#guidance)
 
@@ -44,7 +44,7 @@ The virtual environment file, `IrradInterPy.yaml`, will specifiy all required li
 **Note:** older versions of these libraries and Python may work, but are untested.
 
 ## How to use<a class="anchor" id=howToUse></a>
-There are three ways to use IrradInterPy: [with the compiled executable](#launchExe), [with the GUI](#launchGUI), or [directly with the functions library](#useLibrary)
+There are three ways to use IrradInterPy: [with the GUI using the compiled executable](#launchExe), [with the GUI using the Python script](#launchScript), or [directly with the functions library](#useLibrary)
 
 In the GUI, each time a selection is made, e.g. changing the interpolation step size, the coefficients, interpolation, and visualization update automatically.
 
@@ -57,7 +57,7 @@ Last, use the `Write gray body interpolation to file` button below the interpola
 ### How to launch GUI with executable <a class="anchor" id=launchExe></a>
 The executable is available from the publicly available Github repository. On the Releases page, the latest executable can be downloaded for Windows 10 machines: https://github.com/usnistgov/IrradInterPy/releases. Simply download the .exe and run it.
 
-### How to launch GUI with Python script <a class="anchor" id=launchGUI></a>
+### How to launch GUI with Python script <a class="anchor" id=launchScript></a>
 With `src` as the root folder in a terminal and IrradInterPy as the active environment, use `python IrradInterPy.py` to launch the GUI. Read data into the program with `File > Open datafile ...` where a dialog opens to navigate and select the datafile.
 
 ### How to import and use library (no GUI) <a class="anchor" id=useLibrary></a>
