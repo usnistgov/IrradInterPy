@@ -3,12 +3,13 @@
 * [About](#about)
 * [Python requirements](#requirements)
 * [How to use](#howToUse)
-    - [How to launch GUI](#launchGUI)
+    - [How to launch GUI with executable](#launchExe)
+    - [How to launch GUI with Python script](#launchGUI)
     - [How to import and use library (no GUI)](#useLibrary)
 * [General guidance for irradiance interpolation](#guidance)
 
 ## About <a class="anchor" id=about></a>
-IrradInterPy is an interpolation program for irradiance data from 250 nm to 2500 nm using a gray body model for nonlinear least squares fitting, and returns coefficients for that fit and interpolated data in user-defined steps. Both fit coefficients and interpolation results are written to a CSV, along with uncertainty in each coefficient.
+IrradInterPy is an interpolation program for irradiance data from 250 nm to 2500 nm using a gray body model for nonlinear least squares fitting. It returns coefficients for that fit and the interpolated data in user-defined steps. Both fit coefficients and interpolation results are written to a CSV, along with the uncertainty in each coefficient.
 
 The GUI, when data has been read and interpolated, appears in Figure 1.
 
@@ -38,15 +39,12 @@ To use the GUI, additional libraries and their dependencies are required:
 * PyQT5 >= 5.15.7
 * matplotlib >= 3.5.2
 
-The virtual environment file, `IrradInterPy.yaml` will specifiy all required libraries for use of the interpolation functions and GUI.
+The virtual environment file, `IrradInterPy.yaml`, will specifiy all required libraries for use of the interpolation functions and GUI.
 
 **Note:** older versions of these libraries and Python may work, but are untested.
 
-## How to use <a class="anchor" id=HowToUse></a>
-There are two ways to use IrradInterPy: [with the GUI](#LaunchGUI), or [directly with functions library](#UseLibrary)
-
-### How to launch GUI <a class="anchor" id=launchGUI></a>
-With `src` as the root folder in a terminal that has the IrradInterPy python virtual environment in its path, use `python IrradInterPy.py` to launch the GUI. Read data into the program with `File > Open datafile ...` where a dialog opens to navigate and select the datafile.
+## How to use<a class="anchor" id=howToUse></a>
+There are three ways to use IrradInterPy: [with the compiled executable](#launchExe), [with the GUI](#launchGUI), or [directly with the functions library](#useLibrary)
 
 In the GUI, each time a selection is made, e.g. changing the interpolation step size, the coefficients, interpolation, and visualization update automatically.
 
@@ -55,6 +53,12 @@ First, select the lower and upper wavelength bounds to apply the fit over, and t
 Next, select the lower and upper wavelength bounds to apply the interpolation over, and enter the desired interpolation step. Because extrapolation can easily produce poor results from this fit, when selecting a wavelength bound of interpolation that is outside the region of the fit, the fit will automatically change to the interpolation bounds.
 
 Last, use the `Write gray body interpolation to file` button below the interpolation results table to generate a CSV containing the fit coefficients and interpolation results. A dialog will appear that allows naming and locating the output CSV file.
+
+### How to launch GUI with executable <a class="anchor" id=launchExe></a>
+The executable is available from the publicly available Github repository. On the Releases page, the latest executable can be downloaded for Windows 10 machines: https://github.com/usnistgov/IrradInterPy/releases. Simply download the .exe and run it.
+
+### How to launch GUI with Python script <a class="anchor" id=launchGUI></a>
+With `src` as the root folder in a terminal and IrradInterPy as the active environment, use `python IrradInterPy.py` to launch the GUI. Read data into the program with `File > Open datafile ...` where a dialog opens to navigate and select the datafile.
 
 ### How to import and use library (no GUI) <a class="anchor" id=useLibrary></a>
 With `src` as the root folder, use `import Functions.IrradianceInterpolationFuncs as IIF`. 
