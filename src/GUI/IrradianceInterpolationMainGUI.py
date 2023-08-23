@@ -22,7 +22,7 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.ui.closeEvent = self.Clicked_QUIT
 
         # initial setup
-        self.ui.statusBar.showMessage(version.version)
+        self.ui.statusBar.showMessage("IrradInterPy " + version.version + " (" + version.versionDate+")")
         self.ui.lineEdit_GBStep.setText(str(GUIvar.defaultGBInterpStep))
         self.ui.combo_GBdof.clear()
         for dof in GUIvar.GBfitdof:
@@ -46,6 +46,7 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.GBBBtemperature = ""
         self.GBinterpWavelengths = []
         self.GBinterpIrradiances = []
+        self.residuals = []
         self.GBinterpfile = ""
         if GUIvar.defaultDatafilePath == "":
             self.defaultDatafilePath = os.path.expanduser(os.getenv("USERPROFILE"))
@@ -407,6 +408,11 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
     def WriteGBInterpolationToFile(self):
         try:
             with open(self.GBinterpfile, "w") as openedfile:
+                # program version number
+                openedfile.write("This file was created with IrradInterPy " + version.version + " (" + version.versionDate.replace(",", "") + ")\n")
+                openedfile.write("IrradInterPy is available on Github from the NIST group usnistgov: https://github.com/usnistgov/IrradInterPy\n\n")
+
+                # coefficients
                 openedfile.write("Gray body interpolation coefficients\n")
                 openedfile.write("A_n, Coefficient, Uncertainty (k=1)\n")
                 for i, (coefficient, uncertainty) in enumerate(zip(self.GBcoefficients, self.GBuncertainty)):
@@ -418,16 +424,23 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
                 #openedfile.write("Peak wavelength = %.1f\n" % (IIF.PeakWavelength(self.GBinterpWavelengths, self.GBinterpIrradiances)))
                 #openedfile.write("Apparent blackbody temperature = %.1f\n\n" % (self.GBBBtemperature))
 
+                # interpolated data
                 openedfile.write("Gray body interpolated data\n")
                 openedfile.write("Interpolated wavelength, Interpolated irradiance\n")
                 for i, (wavelength, irradiance) in enumerate(zip(self.GBinterpWavelengths, self.GBinterpIrradiances)):
                     openedfile.write("%.2f, %.6e\n" % (wavelength, irradiance))
                 openedfile.write("\n")
 
+                # measurement data used in interpolation
                 openedfile.write("Measured data\n")
-                openedfile.write("Wavelength, Irradiance\n")
+                openedfile.write("Wavelength, Irradiance, Fit residual (%)\n")
+                j = 0
                 for i, (wavelength, irradiance) in enumerate(zip(self.wavelengths, self.irradiances)):
-                    openedfile.write("%.2f, %.6e\n" % (wavelength, irradiance))
+                    openedfile.write("%.2f, %.6e," % (wavelength, irradiance))
+                    if wavelength >= float(self.ui.combo_GBLowerWLFit.currentText()) and wavelength <= float(self.ui.combo_GBUpperWLFit.currentText()):
+                        openedfile.write("%.4f" % self.residuals[j])
+                        j += 1
+                    openedfile.write("\n")
                 self.EvalComplete.setText("Interpolation complete! Results are stored at: %s" % (self.GBinterpfile))
                 self.EvalComplete.show()
                 subprocess.Popen(r"explorer /select,%s" % (Path(self.GBinterpfile)))
@@ -456,7 +469,7 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
             self.wavelengths,
             (float(self.ui.combo_GBLowerWLFit.currentText()), float(self.ui.combo_GBUpperWLFit.currentText())),
         )
-        residuals = IIF.GrayBody(self.wavelengths[i_lowerBound:i_upperBound], self.GBa, self.GBb, self.GBcoefficients) - self.irradiances[i_lowerBound:i_upperBound]
+        self.residuals = (IIF.GrayBody(self.wavelengths[i_lowerBound:i_upperBound], self.GBa, self.GBb, self.GBcoefficients) - self.irradiances[i_lowerBound:i_upperBound])/self.irradiances[i_lowerBound:i_upperBound]*100
         self.ax_GBIrradiance.measLine, = self.ax_GBIrradiance.plot(
             self.wavelengths[i_lowerBound:i_upperBound],
             self.irradiances[i_lowerBound:i_upperBound],
@@ -479,7 +492,7 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
 
         self.ax_GBResiduals.line, = self.ax_GBResiduals.plot(
             self.wavelengths[i_lowerBound:i_upperBound],
-            residuals/self.irradiances[i_lowerBound:i_upperBound]*100,
+            self.residuals,
             marker=GUIvar.markerType,
             markersize=GUIvar.markerSize,
             markeredgecolor=GUIvar.markerEdgeColor,

@@ -1,5 +1,8 @@
-version = "v1.02, June 15, 2023"
+version = "v1.03"
+versionDate = "23 August, 2023"
 author = "Michael Braine"
 changes = [
-    "- fixed equation typo in GUI text",
+    "- residuals in chart now visualized as \% of irradiance",
+    "- added version number to output csv",
+    "- "
 ]
