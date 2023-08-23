@@ -444,7 +444,7 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.ax_GBIrradiance.set_ylabel(r"Irradiance ($\frac{W}{cm^{3}})$")
         # self.ax_GBIrradiance.set_xticklabels([])
         self.ax_GBIrradiance.grid()
-        self.ax_GBResiduals.set_ylabel(r"Residuals ($\frac{W}{cm^{3}}$)")
+        self.ax_GBResiduals.set_ylabel(r"Residuals (%)")
         self.ax_GBResiduals.set_xlabel("Wavelength (nm)")
         self.ax_GBResiduals.grid()
         self.ui.GBChart.Figure.subplots_adjust(hspace=0.1, left=0.185, right=0.95, bottom=0.13, top=0.99)
@@ -479,14 +479,14 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
 
         self.ax_GBResiduals.line, = self.ax_GBResiduals.plot(
             self.wavelengths[i_lowerBound:i_upperBound],
-            residuals,
+            residuals/self.irradiances[i_lowerBound:i_upperBound]*100,
             marker=GUIvar.markerType,
             markersize=GUIvar.markerSize,
             markeredgecolor=GUIvar.markerEdgeColor,
             markerfacecolor=GUIvar.markerFaceColor,
             linestyle="None",
         )
-        self.ax_GBResiduals.set_ylabel(r"Fit residuals ($\frac{W}{cm^{3}}$)")
+        self.ax_GBResiduals.set_ylabel(r"Fit residuals (%)")
 
         self.ui.GBChart.Canvas.draw()
 
