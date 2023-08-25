@@ -442,6 +442,8 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
                     if wavelength >= float(self.ui.combo_GBLowerWLFit.currentText()) and wavelength <= float(self.ui.combo_GBUpperWLFit.currentText()):
                         openedfile.write("%.4f" % self.residuals[j])
                         j += 1
+                    else:
+                        openedfile.write("-")
                     openedfile.write("\n")
                 self.EvalComplete.setText("Interpolation complete! Results are stored at: %s" % (self.GBinterpfile))
                 self.EvalComplete.show()
