@@ -22,7 +22,9 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.ui.closeEvent = self.Clicked_QUIT
 
         # initial setup
-        self.ui.statusBar.showMessage("IrradInterPy " + version.version + " (" + version.versionDate+")")
+        self.statusBar_version = QtWidgets.QLabel()
+        self.statusBar_version.setText("IrradInterPy " + version.version + " (" + version.versionDate+")")
+        self.ui.statusBar.addPermanentWidget(self.statusBar_version)
         self.ui.lineEdit_GBStep.setText(str(GUIvar.defaultGBInterpStep))
         self.ui.combo_GBdof.clear()
         for dof in GUIvar.GBfitdof:
