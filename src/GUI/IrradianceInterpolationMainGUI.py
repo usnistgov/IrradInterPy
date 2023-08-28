@@ -1,11 +1,12 @@
 import os
+import sys
 from pathlib import Path
 from datetime import datetime
 import subprocess
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 from GUI.uiSource import compiled_IrradianceInterpolationMainGUI
 from GUI.uiSource import compiled_IrradianceInterpolationAboutGUI
 from GUI.uiSource import compiled_IrradianceInterpolationDatafileRequirementsGUI
@@ -22,6 +23,9 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
         self.ui.closeEvent = self.Clicked_QUIT
 
         # initial setup
+        scriptDir = os.path.dirname(os.path.realpath(__file__))
+        iconPath = scriptDir + os.path.sep + "\..\\icon_64.png"
+        self.setWindowIcon(QtGui.QIcon(iconPath))
         self.statusBar_version = QtWidgets.QLabel()
         self.statusBar_version.setText("IrradInterPy " + version.version + " (" + version.versionDate+")")
         self.ui.statusBar.addPermanentWidget(self.statusBar_version)
