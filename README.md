@@ -52,7 +52,7 @@ First, select the lower and upper wavelength bounds to apply the fit over, and t
 
 Next, select the lower and upper wavelength bounds to apply the interpolation over, and enter the desired interpolation step. Because extrapolation can easily produce poor results from this fit, when selecting a wavelength bound of interpolation that is outside the region of the fit, the fit will automatically change to the interpolation bounds.
 
-Last, use the `Write gray body interpolation to file` button below the interpolation results table to generate a CSV containing the fit coefficients and interpolation results. A dialog will appear that allows naming and locating the output CSV file.
+Last, use the `Write interpolation to file` button below the interpolation results table to generate a CSV containing the fit coefficients and interpolation results. A dialog will appear that allows naming and locating the output CSV file.
 
 ### How to launch GUI with executable <a class="anchor" id=launchExe></a>
 The executable is available from the publicly available Github repository. On the Releases page, the latest executable can be downloaded for Windows 10 machines: https://github.com/usnistgov/IrradInterPy/releases. Simply download the .exe and run it.
