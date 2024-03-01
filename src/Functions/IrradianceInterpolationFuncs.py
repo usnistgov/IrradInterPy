@@ -5,6 +5,28 @@ from scipy.interpolate import CubicSpline
 import scipy.constants
 
 def ParseDatafile(filename):
+    """
+    Parses datafile and provides arrays of wavelength and irradiance values, both sorted on increasing wavelength.
+    Caution: only provide a datafile with a header and data. Anything appearing after the rows of data may have unintended consequences.
+    ----------------------------------------------------------------------------
+    Notes
+        Authored by: Michael Braine, Physicist, NIST Gaithersburg
+        EMAIL: michael.braine@nist.gov
+        October 2022
+
+    ----------------------------------------------------------------------------
+    References
+        none
+
+    ----------------------------------------------------------------------------
+    Inputs
+        filename    - string, path and filename of data
+
+    ----------------------------------------------------------------------------
+    Returns
+        wavelengths     - array of increasing wavelength values
+        irradiances     - array of irradiances sorted by increasing wavelength
+    """
     try:
         with open(filename, "r") as openedfile:
             fileData = openedfile.readlines()
@@ -24,7 +46,9 @@ def ParseDatafile(filename):
             wavelengths.append(float(fileData[i].strip("\n").replace("\t", " ").split(" ")[0].split(",")[0]))
             irradiances.append(float(fileData[i].strip("\n").replace("\t", " ").split(" ")[-1].split(",")[-1]))
 
-        return wavelengths, irradiances
+        wavelengths, irradiances = zip(*sorted(zip(wavelengths, irradiances)))                      # sort by increasing wavelength
+
+        return list(wavelengths), list(irradiances)
     except Exception as err:
         raise err
 
