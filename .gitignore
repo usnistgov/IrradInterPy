@@ -1,5 +1,6 @@
 __pycache__
 build
+dist
 *.TMP
 *.aux
 *.fdb_latexmk
