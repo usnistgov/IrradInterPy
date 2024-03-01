@@ -74,8 +74,8 @@ def GrayBody(wavelength, a, b, C):
     ----------------------------------------------------------------------------
     Inputs
         wavelength  - wavelength or array of wavelengths. Expected units: nm
-        a           - coefficient in gray body model, related to gray body emissivity with e**a. Needs determined independently by fitting data (see ab_model function)
-        b           - coefficient in gray body model, related to reciprocal of temperature distribution. Needs determined independently by fitting data (see ab_model function)
+        a           - coefficient in gray body model, related to gray body emissivity with e**a. Needs determined independently by fitting data (see E_planckian function)
+        b           - coefficient in gray body model, related to reciprocal of temperature distribution. Needs determined independently by fitting data (see E_planckian function)
         C           - nx1 array containing gray body coefficients C_0, C_1, ... , C_n
 
     ----------------------------------------------------------------------------
@@ -105,8 +105,8 @@ def __GrayBody__(a, b):
 
     ----------------------------------------------------------------------------
     Inputs
-        a - coefficient in gray body model, related to gray body emissivity with e**a. Needs determined independently by fitting data (see ab_model function)
-        b - coefficient in gray body model, related to reciprocal of temperature distribution. Needs determined independently by fitting data (see ab_model function)
+        a - coefficient in gray body model, related to gray body emissivity with e**a. Needs determined independently by fitting data (see E_planckian function)
+        b - coefficient in gray body model, related to reciprocal of temperature distribution. Needs determined independently by fitting data (see E_planckian function)
 
     ----------------------------------------------------------------------------
     Returns
@@ -148,7 +148,7 @@ def __GrayBody__(a, b):
         return summ*np.array(wavelength)**-5*math.e**(a + b/np.array(wavelength))
     return GrayBody_model
 
-def ab_model(wavelength, a, b):
+def E_planckian(wavelength, a, b):
     """
     Model to determine coefficients in Gray Body model.
     These constants are fit and determined independently of others in gray body model by fitting data to:
@@ -167,8 +167,8 @@ def ab_model(wavelength, a, b):
     ----------------------------------------------------------------------------
     Inputs
         wavelength  - wavelength or array of wavelengths. Expected units: nm
-        a           - coefficient in gray body model, related to gray body emissivity with e**a. Needs determined independently by fitting data (see ab_model function)
-        b           - coefficient in gray body model, related to reciprocal of temperature distribution. Needs determined independently by fitting data (see ab_model function)
+        a           - coefficient in gray body model, related to gray body emissivity with e**a. Needs determined independently by fitting data (see E_planckian function)
+        b           - coefficient in gray body model, related to reciprocal of temperature distribution. Needs determined independently by fitting data (see E_planckian function)
 
     ----------------------------------------------------------------------------
     Returns
@@ -231,7 +231,7 @@ def GrayBodyCoefficients(wavelength, irradiance, region, dof):
     """
     i_lowerBound, i_upperBound = WavelengthRegionIndex(wavelength, region)
 
-    ab, ab_covariance = curve_fit(ab_model, wavelength[i_lowerBound:i_upperBound], irradiance[i_lowerBound:i_upperBound], p0=[50, -4800], sigma=irradiance[i_lowerBound:i_upperBound])
+    ab, ab_covariance = curve_fit(E_planckian, wavelength[i_lowerBound:i_upperBound], irradiance[i_lowerBound:i_upperBound], p0=[50, -4800], sigma=irradiance[i_lowerBound:i_upperBound])
     a, b = ab[0], ab[1]
     U_ab = UncertaintyFromCovariance(ab_covariance)
 
