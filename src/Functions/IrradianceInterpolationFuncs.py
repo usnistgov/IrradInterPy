@@ -44,7 +44,7 @@ def ParseDatafile(filename):
         irradiances = []
         for i in range(headerIndex, len(fileData)):
             wavelengths.append(float(fileData[i].strip("\n").replace("\t", " ").split(" ")[0].split(",")[0]))
-            irradiances.append(float(fileData[i].strip("\n").replace("\t", " ").split(" ")[-1].split(",")[-1]))
+            irradiances.append(float(fileData[i].strip("\n").replace("\t", " ").split(" ")[-1].split(",")[1]))
 
         wavelengths, irradiances = zip(*sorted(zip(wavelengths, irradiances)))                      # sort by increasing wavelength
 
