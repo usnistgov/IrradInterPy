@@ -296,11 +296,11 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
     def Clicked_GBEvaluate(self):
         try:
             fileTimeStr = "%d-%d-%d_%d-%d-%d" % (
-                datetime.today().day, 
-                datetime.today().month, 
-                datetime.today().year, 
-                datetime.today().hour, 
-                datetime.today().minute, 
+                datetime.today().day,
+                datetime.today().month,
+                datetime.today().year,
+                datetime.today().hour,
+                datetime.today().minute,
                 datetime.today().second,
             )
             self.GBinterpfile = ".".join(str(self.InputFilename).split(".")[:-1]) + "-Gray_Body_Interpolation-%s.csv" % (fileTimeStr)
@@ -422,9 +422,9 @@ class Window_IrradianceInterpolationMain(QtWidgets.QMainWindow):
                 openedfile.write("Gray body interpolation coefficients\n")
                 openedfile.write("A_n, Coefficient, Uncertainty (k=1)\n")
                 for i, (coefficient, uncertainty) in enumerate(zip(self.GBcoefficients, self.GBuncertainty)):
-                    openedfile.write("A%d, %.12e, %.12e\n" % (i, coefficient, uncertainty))
-                openedfile.write("a, %.12e, %.12e\n" % (self.GBa, self.abUncertainty[0]))
-                openedfile.write("b, %.12e, %.12e\n" % (self.GBb, self.abUncertainty[1]))
+                    openedfile.write("A%d, %.20e, %.20e\n" % (i, coefficient, uncertainty))
+                openedfile.write("a, %.20e, %.20e\n" % (self.GBa, self.abUncertainty[0]))
+                openedfile.write("b, %.20e, %.20e\n" % (self.GBb, self.abUncertainty[1]))
                 openedfile.write("\n")
 
                 #openedfile.write("Peak wavelength = %.1f\n" % (IIF.PeakWavelength(self.GBinterpWavelengths, self.GBinterpIrradiances)))

@@ -1,6 +1,6 @@
-version = "v1.06"
-versionDate = "8 March, 2024"
+version = "v1.07"
+versionDate = "17 December, 2024"
 author = "Michael Braine"
 changes = [
-    "- NIST-distributed CSVs from FEL calibrations can now be imported",
+    "- increased number of digits in coefficients in export csv from 12 to 20. Allows greater comparison to reported interpolated data from program when performing interpolation using export coefficients",
 ]
